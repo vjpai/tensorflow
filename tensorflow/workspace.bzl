@@ -458,9 +458,9 @@ def tf_workspace(path_prefix="", tf_repo_name=""):
   native.http_archive(
       name = "grpc",
       urls = [
-          "https://github.com/vjpai/grpc/archive/7edcde9345fd2a867922fbb475e714558705d813.tar.gz",
+          "https://github.com/vjpai/grpc/archive/09d430d7b577eba57c8e4d5909b7fd98f694b05e.tar.gz",
       ],
-      strip_prefix = "grpc-7edcde9345fd2a867922fbb475e714558705d813",
+      strip_prefix = "grpc-09d430d7b577eba57c8e4d5909b7fd98f694b05e",
   )
 
   # protobuf expects //external:grpc_cpp_plugin to point to grpc's
@@ -473,6 +473,20 @@ def tf_workspace(path_prefix="", tf_repo_name=""):
   native.bind(
       name = "grpc_lib",
       actual = "@grpc//:grpc++_unsecure",
+  )
+
+  native.bind(
+      name = "cares",
+      actual = "@submodule_cares//:ares",
+  )
+
+  native.new_http_archive(
+      name = "submodule_cares",
+      urls = [
+          "https://github.com/c-ares/c-ares/archive/7691f773af79bf75a62d1863fd0f13ebf9dc51b1.tar.gz",
+      ],
+      strip_prefix = "c-ares-7691f773af79bf75a62d1863fd0f13ebf9dc51b1",
+      build_file = "third_party/cares/cares.BUILD",
   )
 
   native.new_http_archive(
